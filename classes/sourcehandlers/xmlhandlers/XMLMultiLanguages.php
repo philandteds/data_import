@@ -29,21 +29,7 @@ class XMLMultiLanguages extends XmlHandlerPHP
 	function geteZAttributeIdentifierFromField()
 	{
 		$field_name = $this->current_field->getAttribute('name');
-		
-		switch ( $field_name )
-		{
-					case 'shortname':
-						return 'short_name';
-						
-					case 'showsubitems':
-						return 'show_children';
-
-					case 'publishdate':
-						return 'publish_date';
-						
-			default:
-				return $field_name; 
-		}
+		return $field_name; 
 	}
 	
 	// handles xml fields before storing them in ez publish
@@ -79,11 +65,11 @@ class XMLMultiLanguages extends XmlHandlerPHP
 	{
 		$parent_id = 2; // fallback is the root node
 		
-		$parent_remote_id = $this->current_row->getAttribute('parent_id');
+		return $this->current_row->getAttribute('parent_id');
 
 		if( $parent_remote_id )
 		{
-			$eZ_object = eZContentObject::fetchByRemoteID( self::REMOTE_IDENTIFIER.$parent_remote_id );
+			$eZ_object = eZContentObject::fetchByNodeID( $parent_remote_id );
 
 			if( $eZ_object )
 			{
@@ -106,12 +92,12 @@ class XMLMultiLanguages extends XmlHandlerPHP
 
 	function getTargetContentClass()
 	{
-		return 'folder';
+		return $this->current_row->getAttribute( 'type' );
 	}
 
 	function readData()
 	{
-		return $this->parse_xml_document( 'extension/data_import/dataSource/examples/multilanguages.xml', 'all' );
+		return $this->parse_xml_document( 'extension/ezxmlexport/exports/xml/support_section/support_section.transformed.xml', 'all' );
 	}
 
 	function post_publish_handling( $eZ_object, $force_exit )
