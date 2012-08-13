@@ -82,7 +82,7 @@ class XMLMultiLanguages extends XmlHandlerPHP
 
 	function getDataRowId()
 	{
-		return self::REMOTE_IDENTIFIER . $this->current_row->getAttribute('id');
+		return $this->current_row->getAttribute('remote_id');
 	}
 
 	function getTargetLanguage()
@@ -97,7 +97,7 @@ class XMLMultiLanguages extends XmlHandlerPHP
 
 	function readData()
 	{
-		return $this->parse_xml_document( 'extension/ezxmlexport/exports/xml/support_section/support_section.transformed.xml', 'all' );
+		return $this->parse_xml_document( 'extension/ezxmlexport/exports/xml/support_section7/support_section7.transformed.xml', 'all' );
 	}
 
 	function post_publish_handling( $eZ_object, $force_exit )
